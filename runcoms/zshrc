@@ -11,3 +11,57 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias s="git status"
+alias v="nvim"
+alias vv="nvim /Users/bp/.config/nvim/init.vim"
+alias vz="nvim /Users/bp/.zshrc"
+alias phx="iex -S mix phx.server"
+alias take="mkdcd"
+alias migra="docker run djrobstep/migra migra"
+alias clean_branches="git branch --merged | egrep -v \"(^\*|master|develop|staging)\" | xargs git branch -d"
+alias kill_phx="lsof -t -i:4000 | xargs kill -9"
+
+# fasd
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
+
+
+# Terraform stuff
+# CareBridge
+alias tplan='aws-vault exec carebridge-terraform -- terraform plan'
+alias tapply='aws-vault exec carebridge-terraform -- terraform apply'
+alias tinit='aws-vault exec carebridge-terraform -- terraform init'
+alias tinitupgrade='aws-vault exec carebridge-terraform -- terraform init -upgrade'
+tunlock() {
+    #unlock state forefully
+    aws-vault exec carebridge-terraform -- terraform force-unlock "$1"
+}
+
+# Mainstreet Health
+#
+alias mshtplan='aws-vault exec msh-terraform -- terraform plan'
+alias mshtapply='aws-vault exec msh-terraform -- terraform apply'
+alias mshtinit='aws-vault exec msh-terraform -- terraform init'
+alias mshtinitupgrade='aws-vault exec msh-terraform -- terraform init -upgrade'
+
+# asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/bp/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/bp/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/bp/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/bp/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
